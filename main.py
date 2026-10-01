@@ -9,7 +9,7 @@ tasks = [
     {"id": 3, "title": "Test the API", "done": False},
 ]
 
-@app.get("/")
+@app.get("/", description="Get API information and available endpoints.")
 def root():
     return {
         "name": "Task API",
@@ -18,15 +18,15 @@ def root():
     }
 
 
-@app.get("/health")
+@app.get("/health", description="Check whether the API is running.")
 def health():
     return {"status": "ok"}
 
-@app.get("/tasks")
+@app.get("/tasks", description="Get all tasks.")
 def get_tasks():
     return tasks
 
-@app.get("/tasks/{task_id}")
+@app.get("/tasks/{task_id}", description="Get a single task by ID.")
 def get_task(task_id: int):
     task = next((task for task in tasks if task["id"] == task_id), None)
 
@@ -38,7 +38,7 @@ def get_task(task_id: int):
 
     return task
 
-@app.post("/tasks", status_code=201)
+@app.post("/tasks", status_code=201, description="Create a new task.")
 def create_task(task_data: dict):
     title = task_data.get("title")
 
@@ -60,7 +60,7 @@ def create_task(task_data: dict):
 
     return new_task
 
-@app.put("/tasks/{task_id}")
+@app.put("/tasks/{task_id}", description="Update a task by ID.")
 def update_task(task_id: int, task_data: dict):
     task = next((task for task in tasks if task["id"] == task_id), None)
 
@@ -106,7 +106,7 @@ def update_task(task_id: int, task_data: dict):
 
     return task
 
-@app.delete("/tasks/{task_id}", status_code=204)
+@app.delete("/tasks/{task_id}", status_code=204, description="Delete a task by ID.")
 def delete_task(task_id: int):
     task = next((task for task in tasks if task["id"] == task_id), None)
 
