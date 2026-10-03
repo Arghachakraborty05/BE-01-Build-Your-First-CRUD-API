@@ -1,193 +1,102 @@
-\# Task API
-
-
+# Task API
 
 A small in-memory CRUD API built with Python and FastAPI as part of the FlyRank Backend AI Engineering assignment (BE-01).
 
+## Features
 
+- Create tasks
+- Read all tasks or a single task
+- Update a task title and/or completion status
+- Delete tasks
+- Input validation and 404 error handling
+- Interactive Swagger UI documentation
+- In-memory task storage
 
-\## Features
+## Requirements
 
+- Python 3.10+
+- FastAPI
+- Uvicorn
 
-
-\* Create tasks
-
-\* Read all tasks or a single task
-
-\* Update a task title and/or completion status
-
-\* Delete tasks
-
-\* Input validation and 404 error handling
-
-\* Interactive Swagger UI documentation
-
-\* In-memory task storage
-
-
-
-\## Requirements
-
-
-
-\* Python 3.10+
-
-\* FastAPI
-
-\* Uvicorn
-
-
-
-\## Run locally
-
-
+## Run locally
 
 Install the dependencies:
 
-
-
 ```bash
-
 pip install -r requirements.txt
-
-
 ```
-
-
-
 Start the API server:
 
-
-
 ```bash
-
 python -m uvicorn main:app --reload
-
 ```
-
-
 
 The API will run at:
 
-
-
 `http://localhost:8000`
-
-
 
 Swagger UI is available at:
 
-
-
 `http://localhost:8000/docs`
 
+## API Endpoints
 
+| Method |        Endpoint       |               Description                   |
+|--------|-----------------------|---------------------------------------------|
+| GET    |          `/`          | Get API information and available endpoints |
+| GET    |       `/health`       |       Check whether the API is running      |
+| GET    |       `/tasks`        |               Get all tasks                 |
+| POST   |       `/tasks`        |             Create a new task               |
+| GET    |   `/tasks/{task_id}`  |          Get a single task by ID            |
+| PUT    |   `/tasks/{task_id}`  |            Update a task by ID              |
+| DELETE |   `/tasks/{task_id}`  |            Delete a task by ID              |
 
-\## API Endpoints
+## Example Request
 
+### Create a task
 
-
-| Method | Endpoint           | Description                                 |
-
-| ------ | ------------------ | ------------------------------------------- |
-
-| GET    | `/`                | Get API information and available endpoints |
-
-| GET    | `/health`          | Check whether the API is running            |
-
-| GET    | `/tasks`           | Get all tasks                               |
-
-| POST   | `/tasks`           | Create a new task                           |
-
-| GET    | `/tasks/{task\\\_id}` | Get a single task by ID                     |
-
-| PUT    | `/tasks/{task\\\_id}` | Update a task by ID                         |
-
-| DELETE | `/tasks/{task\\\_id}` | Delete a task by ID                         |
-
-
-
-\## Example Request
-
-
-
-\### Create a task
-
-
-
-```powershell
-
-$body = '{"title":"Buy milk"}'; $body | curl.exe -i -X POST http://localhost:8000/tasks -H "Content-Type: application/json" --data-binary "@-"
-
+```bash
+curl -i -X POST http://localhost:8000/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Buy milk"}'
 ```
 
 Example response:
 
 ```text
-
 HTTP/1.1 201 Created
-
+date: Fri, 02 Oct 2026 11:51:14 GMT
+server: uvicorn
+content-length: 40
 content-type: application/json
 
-
-
 {"id":4,"title":"Buy milk","done":false}
-
 ```
 
-
-
-\## Swagger UI
-
-
+## Swagger UI
 
 The API uses FastAPI's built-in Swagger UI for interactive API documentation and testing.
 
-
-
 Open:
-
-
 
 `http://localhost:8000/docs`
 
+![Swagger UI](screenshots/swagger-ui.png)
 
-
-!\[Swagger UI](screenshots/swagger-ui.png)
-
-
-
-\## Data Storage
-
-
+## Data Storage
 
 Tasks are stored in memory only. No database or external file storage is used.
 
-
-
 The initial task list contains three example tasks. Because the data is stored in memory, changes are reset when the application restarts.
 
-
-
-\## Project Structure
-
-
+## Project Structure
 
 ```text
-
 BE-01-Build-Your-First-CRUD-API/
-
 ├── main.py
-
 ├── requirements.txt
-
 ├── .gitignore
-
 ├── README.md
-
 └── screenshots/
-
-      └── swagger-ui.png
-
+    └── swagger-ui.png
 ```
-
